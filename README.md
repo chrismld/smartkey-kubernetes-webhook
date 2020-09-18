@@ -110,7 +110,7 @@ You can inspect the init container logs in case something fails or you want to c
 kubectl logs nginx -c smk-decrypt-init
 ```
 
-You can get access to the secrets at `/smk/secrets/db-user-pass/`, you can give it a try by running the following commands:
+You can get access to the secrets at `/smk/secrets/credentials/`, you can give it a try by running the following commands:
 
 ```
 kubectl exec nginx -- ls -la /smk/secrets
