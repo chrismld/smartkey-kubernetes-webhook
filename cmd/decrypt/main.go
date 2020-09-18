@@ -42,7 +42,7 @@ func main() {
 	for _, file := range files {
 		encryptedData := getRawValue(file)
 		decryptedData := decryptSecret(encryptedData)
-		persistSecretValue(file, decryptedData)
+		persistSecretValue(file, secrets, decryptedData)
 	}
 
 	fmt.Println("Done decrypting the secrets")
@@ -79,9 +79,17 @@ func getRawValue(file string) string {
 	return string(content)
 }
 
-func persistSecretValue(file string, content string) {
+func persistSecretValue(file string, secrets []*Secret, content string) {
 	file = strings.Replace(file, "encrypt/", "", 1)
 	file = strings.Replace(file, filepath.Base(filepath.Dir(file))+"/", "", 1)
+
+	for _, secret := range secrets {
+		if strings.Contains(file, secret.Path) {
+			file = strings.Replace(file, secret.Path, secret.Name, 1)
+			break
+		}
+	}
+
 	os.MkdirAll(filepath.Dir(file), 0700)
 
 	secretFile, err := os.Create(file)
