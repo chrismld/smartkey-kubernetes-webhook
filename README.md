@@ -114,7 +114,7 @@ You can get access to the secrets at `/smk/secrets/credentials/`, you can give i
 
 ```
 kubectl exec nginx -- ls -la /smk/secrets
-kubectl exec nginx -- ls -la /smk/secrets/db-user-pass
+kubectl exec nginx -- ls -la /smk/secrets/credentials
 kubectl exec nginx -- cat /smk/secrets/credentials/password.txt
 kubectl exec nginx -- cat /smk/secrets/credentials/username.txt
 ```
