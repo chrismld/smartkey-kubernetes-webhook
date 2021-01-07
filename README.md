@@ -33,7 +33,7 @@ kubectl create secret generic smk-credentials \
  --from-literal=SMARTKEY_URL='https://eu.smartkey.io' \
  --from-literal=SMARTKEY_OBJECT_UUID='{YOUR_SECURITY_OBJECT_UUID}' \
  --from-literal=SMARTKEY_API_KEY='{YOUR_API_KEY}' \
- -n smartkey-demo --dry-run=client -o yaml | kubectl apply -f -
+ -n smartkey-vaul --dry-run=client -o yaml | kubectl apply -f -
 ./deploy.sh
 ```
 
@@ -72,6 +72,7 @@ If you try to get the values from the secret, they're still encoded in base64 bu
 
 ```
 kubectl get secret db-user-pass -o json
+echo ENCODEDVALUE | base64 --decode
 ```
 
 ### Include SmartKey Annotations
@@ -113,10 +114,10 @@ kubectl logs nginx -c smk-decrypt-init
 You can get access to the secrets at `/smk/secrets/credentials/`, you can give it a try by running the following commands:
 
 ```
-kubectl exec nginx -- ls -la /smk/secrets
-kubectl exec nginx -- ls -la /smk/secrets/credentials
-kubectl exec nginx -- cat /smk/secrets/credentials/password.txt
-kubectl exec nginx -- cat /smk/secrets/credentials/username.txt
+kubectl exec nginx -c nginx -- ls -la /smk/secrets
+kubectl exec nginx -c nginx -- ls -la /smk/secrets/credentials
+kubectl exec nginx -c nginx -- cat /smk/secrets/credentials/password.txt
+kubectl exec nginx -c nginx -- cat /smk/secrets/credentials/username.txt
 ```
 
 ## How to Uninstall the Webhook

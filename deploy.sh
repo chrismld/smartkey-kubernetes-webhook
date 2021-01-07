@@ -5,7 +5,7 @@ set -euo pipefail
 basedir="$(dirname "$0")/deployment"
 keydir="$(mktemp -d)"
 
-echo "Generating TLS keys ..."
+echo "Generating TLS keys in ${keydir} ..."
 "${basedir}/generate-keys.sh" "$keydir"
 
 echo "Creating Kubernetes objects ..."
